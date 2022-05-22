@@ -1,0 +1,72 @@
+.modal {
+  &-wrapper {
+    font-size: 36px;
+    color: #fff;
+    top: 75px;
+    left: 400px;
+    width: 800px;
+    position: absolute;
+    background-color: #232323;
+    padding: 50px;
+  }
+
+  &-closeBtn {
+    color: white;
+    float: right;
+    margin: -35px -30px;
+
+    &:hover {
+      color: white;
+      cursor: pointer;
+      transform: scale(1.2);
+    }
+  }
+
+  &-confirm {
+    font-size: 28px;
+    padding: 15px;
+    border-radius: 5px;
+    width: 200px;
+    float: right;
+  }
+
+  &-form {
+    &-wrapper {
+      padding: 30px;
+    }
+
+    &-label {
+      text-transform: uppercase;
+      color: #1779ba;
+      font-size: 16px;
+    }
+
+    &-input {
+      padding: 30px 15px !important;
+      background-position: right -7px center;
+      font-size: 22px;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      background-color: #404040;
+
+      &::placeholder {
+        opacity: 0.3;
+      }
+
+      &:focus {
+        background-color: #454545;
+      }
+
+      &--textarea {
+        padding-top: 15px !important;
+        font-size: 16px;
+        resize: none;
+      }
+    }
+
+    &-checkbox {
+
+    }
+  }
+}

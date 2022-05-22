@@ -1,0 +1,21 @@
+.header-search {
+  &-wrapper {
+    margin: 100px 0 0 325px;
+    opacity: 0.9;
+  }
+
+  &-input {
+    padding: 25px;
+    font-size: 22px;
+
+    &::placeholder {
+      color: #212121;
+      opacity: 0.3;
+    }
+  }
+
+  &-button {
+    font-size: 18px;
+    margin-top: -0.5px;
+  }
+}

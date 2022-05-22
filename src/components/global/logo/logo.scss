@@ -1,0 +1,22 @@
+.logo {
+    display: inline-block;
+    color: #f65261;
+    letter-spacing: 1px;
+    font-size: 46px;
+
+    &--bold {
+      font-weight: 900;
+      letter-spacing: normal;
+    }
+
+    &-footer {
+      margin-left: 42%;
+    }
+
+    &-dungeon {
+      position: absolute;
+      top: 5px;
+      left: 106px;
+      font-size: 20px;
+    }
+}
