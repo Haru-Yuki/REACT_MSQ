@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import "./dungeon-card.scss";
-import Dungeon from "../../../models/dungeon-data";
+import Dungeon from "../../../models/dungeon";
 import {SHOW_DUNGEON_INFO} from "../../../store/actions";
 import {useDispatch} from "react-redux";
 
@@ -29,6 +29,8 @@ const prepareDungeonInfo = (data: Dungeon) => {
 }
 
 const setShowDungeonInfo = (data: Dungeon) => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+
     return {
         type: SHOW_DUNGEON_INFO,
         payload: prepareDungeonInfo(data)
