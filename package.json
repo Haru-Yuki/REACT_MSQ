@@ -5,8 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --port 3000",
-    "server-start": "node server/src/index.js",
-    "server-govno-start": "java -jar MSQRoulette/MSQRoulette-SNAPSHOT.jar",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "keywords": [],

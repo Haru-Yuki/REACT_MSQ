@@ -3,31 +3,29 @@ import "./dungeon-list.scss";
 
 import DungeonCard from "./dungeon-card/dungeon-card";
 import {useDispatch, useSelector} from "react-redux";
-import {DUNGEONS_FOUND} from "../../store/actions";
+import {DUNGEONS, DUNGEONS_FOUND} from "../../store/actions";
 import axios from "axios";
 import {replace} from "lodash";
+import {getAllDungeonsAPI, setDungeonCounter, setDungeons} from "../../api/dungeons/dungeons-api";
+import Dungeon from "../../models/dungeon";
 
 const DungeonList = () => {
     const dispatch = useDispatch();
     const storeDungeonsFilter = useSelector((state: any) => state.dungeonsFilter);
     const storeDungeonsSorting = useSelector((state: any) => state.dungeonsSorting);
-
-    const [dungeons, setDungeons] = useState([]);
+    const storeDungeons = useSelector((state: any) => state.dungeons);
 
     useEffect(() => {
-        getAllDungeons(storeDungeonsFilter, storeDungeonsSorting).then((data: any) => dispatch(setDungeonCounter(data.totalAmount)));
+        getAllDungeonsAPI(storeDungeonsFilter, storeDungeonsSorting)
+            .then((data: any) => {
+                dispatch(setDungeonCounter(data.totalAmount));
+                dispatch(setDungeons(data.data));
+            });
     }, [storeDungeonsFilter, storeDungeonsSorting]);
-
-    const getAllDungeons = async (dungeonsFilter: string, dungeonsSorting: string) => {
-        const dungeons = await axios.get(`http://localhost:8080/dungeons?filter=${dungeonsFilter}&sort=${dungeonsSorting}`);
-
-        setDungeons(dungeons.data.data || []);
-        return dungeons;
-    };
 
     return (
         <>
-            {dungeons.map((dungeon) =>
+            {storeDungeons.map((dungeon: Dungeon) =>
                 <DungeonCard
                     imageLink={dungeon.imageLink}
                     name={dungeon.name}
@@ -39,15 +37,6 @@ const DungeonList = () => {
             )}
         </>
     )
-};
-
-const setDungeonCounter = (totalAmount: number) => {
-    return {
-        type: DUNGEONS_FOUND,
-        payload: {
-            totalAmount: totalAmount
-        }
-    }
 };
 
 export default DungeonList;

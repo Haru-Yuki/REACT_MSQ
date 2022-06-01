@@ -1,3 +1,4 @@
+export const DUNGEONS = 'DUNGEONS';
 export const SHOW_DUNGEON_INFO = 'SHOW_DUNGEON_INFO';
 export const DUNGEONS_FOUND = 'DUNGEONS_FOUND';
 export const DUNGEONS_FILTER = 'DUNGEONS_FILTER';

@@ -51,11 +51,29 @@
       }
 
       &-patchName {
-        margin: 12px 0 0 30px;
+        margin: 12px 0 0 10px;
         border: 1px solid #fff;
         border-radius: 3px;
         padding: 7px;
         height: 40px;
+      }
+
+      &-edit {
+        margin: 12px 0 0 70px;
+        color: mediumspringgreen;
+        border: 1px solid mediumspringgreen;
+        border-radius: 3px;
+        padding: 7px 15px;
+        height: 40px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(0,0,0, 0.2);
+        }
+
+        &:active {
+          background-color: rgba(0,0,0, 0.5);
+        }
       }
 
       &-description {

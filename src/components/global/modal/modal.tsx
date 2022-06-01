@@ -1,7 +1,7 @@
 import React, {MouseEventHandler, useEffect} from "react";
 import "./modal.scss";
 
-const Modal = (props: {isDelete: boolean, onClose: MouseEventHandler<HTMLButtonElement>}) => {
+const Modal = (props: {isDelete: boolean, onClose: MouseEventHandler<HTMLButtonElement>, onConfirm?: any, name?: string}) => {
     useEffect(() => {
         document.body.classList.add('modal-open');
         return () => {
@@ -11,7 +11,7 @@ const Modal = (props: {isDelete: boolean, onClose: MouseEventHandler<HTMLButtonE
 
     return <div className="modal-container modal-container--active" id="modal-container">
                 { props.isDelete ?
-                renderDeleteModal(props.onClose) :
+                renderDeleteModal(props.onClose, props.onConfirm, props.name) :
                 renderDungeonModal(props.onClose) };
             </div>
 }
@@ -37,58 +37,15 @@ const renderDungeonModal = (onClose: MouseEventHandler<HTMLButtonElement>) => {
                     </div>
                     <div className="grid-x grid-padding-x">
                         <div className="medium-10 cell">
-                            <label className="modal-form-label">Wiki url
-                                <input className="modal-form-input" type="url" placeholder="https://ffxiv.consolegameswiki.com/wiki/Dungeons/" />
+                            <label className="modal-form-label">Image link
+                                <input className="modal-form-input" type="url" placeholder="https://i.imgur.com/Qo4TszB.png" />
                             </label>
                         </div>
                         <div className="medium-2 cell">
                             <label className="modal-form-label">Patch
-                                <select className="modal-form-input">
-                                    <option value="default"> </option>
-                                    <option value="2.0">2.0</option>
-                                    <option value="2.1">2.1</option>
-                                    <option value="2.2">2.2</option>
-                                    <option value="2.3">2.3</option>
-                                    <option value="2.4">2.4</option>
-                                    <option value="2.5">2.5</option>
-                                    <option value="3.0">3.0</option>
-                                    <option value="3.1">3.1</option>
-                                    <option value="3.2">3.2</option>
-                                    <option value="3.3">3.3</option>
-                                    <option value="3.4">3.4</option>
-                                    <option value="3.5">3.5</option>
-                                    <option value="4.0">4.0</option>
-                                    <option value="4.1">4.1</option>
-                                    <option value="4.2">4.2</option>
-                                    <option value="4.3">4.3</option>
-                                    <option value="4.4">4.4</option>
-                                    <option value="4.5">4.5</option>
-                                    <option value="5.0">5.0</option>
-                                    <option value="5.1">5.1</option>
-                                    <option value="5.2">5.2</option>
-                                    <option value="5.3">5.3</option>
-                                    <option value="5.4">5.4</option>
-                                    <option value="5.5">5.5</option>
-                                    <option value="6.0">6.0</option>
-                                    <option value="6.1">6.1</option>
-                                </select>
+                                <input className="modal-form-input" type="text" placeholder="ARR" />
                             </label>
                         </div>
-                    </div>
-                    <div className="grid-x grid-padding-x">
-                        <div className="medium-10 cell">
-                            <label className="modal-form-label">Unlock quest
-                                <input className="modal-form-input" type="text" placeholder="It's Probably Pirates" />
-                            </label>
-                        </div>
-                        <div className="medium-2 cell">
-                            <label className="modal-form-label">Ilevel
-                                <input className="modal-form-input" type="number" min={0} max={600} placeholder="-" />
-                            </label>
-                        </div>
-                    </div>
-                    <div className="medium-2 cell">
-                        <input id="isMsqCheck" type="checkbox" className="modal-form-checkbox" /><label className="modal-form-label" htmlFor="isMsqCheck">MSQ</label>
                     </div>
                     <div className="grid-x grid-padding-x">
                         <div className="medium-12 cell">
@@ -105,13 +62,14 @@ const renderDungeonModal = (onClose: MouseEventHandler<HTMLButtonElement>) => {
     )
 }
 
-const renderDeleteModal = (onClose: MouseEventHandler<HTMLButtonElement>) => {
+const renderDeleteModal = (onClose: MouseEventHandler<HTMLButtonElement>, onConfirm: any, name: string) => {
     return (
-        <div className={"modal-wrapper"}>
+        <div className={"modal-wrapper modal-wrapper--delete"}>
             <button onClick={onClose} className={"modal-closeBtn"}>X</button>
             <h2 className={"modal-header"}>Delete Dungeon</h2>
-            <p className={"modal-text"}>Are you sure you want to delete dungeon?</p>
-            <button type={"submit"} className={"submit success button modal-confirm"}>Confirm</button>
+            <p className={"modal-text"}>Are you sure you want to delete <span className={"modal-dungeonName"}>{name}</span> dungeon?</p>
+            <button onClick={onConfirm} type={"submit"} className={"submit success button modal-confirm"}>Confirm</button>
+            <button onClick={onClose} className={"submit alert button modal-confirm"}>Cancel</button>
         </div>
     )
 }
