@@ -33,7 +33,6 @@ const Header = () => {
                     <h3 className={"header-dungeon-card-name"}>{showDungeonInfo.name}</h3>
                     <span className={"header-dungeon-card-level"}>Lvl.{showDungeonInfo.level}</span>
                     <span className={"header-dungeon-card-patchName"}>{showDungeonInfo.patchName}</span>
-                    <button className={"header-dungeon-card-edit"}>Edit</button>
                     <p className={"header-dungeon-card-description"}>{showDungeonInfo.description}</p>
                 </div>
                 <button onClick={() => setShowDungeonInfo({})} className="header-dungeon-closeBtn">X</button>

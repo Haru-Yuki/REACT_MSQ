@@ -20,6 +20,11 @@ module.exports = {
     module: {
         rules: [
           {
+            test: /\.mjs$/,
+            enforce: 'pre',
+            use: ['source-map-loader'],
+          },
+          {
             test: /\.tsx?$/,
             use: 'ts-loader',
             exclude: /node_modules/,

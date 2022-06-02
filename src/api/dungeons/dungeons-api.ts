@@ -7,6 +7,11 @@ export const getAllDungeonsAPI = async (dungeonsFilter: string, dungeonsSorting:
     return dungeons.data;
 };
 
+export const addDungeonAPI = async (dungeon: Dungeon) => {
+    console.log(dungeon);
+    await axios.put(`https://ffmsqroulette.herokuapp.com/dungeons/add`, dungeon);
+};
+
 export const deleteDungeonAPI = async (dungeonName: string) => {
     await axios.delete(`https://ffmsqroulette.herokuapp.com/dungeons/del`, { data: { name: dungeonName } });
 };

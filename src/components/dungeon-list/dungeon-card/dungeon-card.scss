@@ -8,7 +8,7 @@
     cursor: pointer;
     transform: scale(1.02);
 
-    & > .dungeon-card-delete {
+    & > .dungeon-card-button {
       display: block;
     }
   }
@@ -39,17 +39,14 @@
     display: block;
   }
 
-  &-delete {
-    position: absolute;
-    top: 0;
-    right: 10px;
+  &-button {
     display: none;
-    margin: 12px 0 0 10px;
-    color: darkred;
-    border: 1px solid darkred;
-    border-radius: 3px;
     padding: 7px 15px;
     height: 40px;
+    border-radius: 3px;
+    margin: 12px 0 0 10px;
+    position: absolute;
+    top: 0;
 
     &:hover {
       cursor: pointer;
@@ -58,6 +55,19 @@
 
     &:active {
       background-color: rgba(256, 256, 256, 0.2);
+    }
+
+    &__delete {
+      color: darkred;
+      border: 1px solid darkred;
+      right: 10px;
+    }
+
+    &__edit {
+      color: mediumspringgreen;
+      border: 1px solid mediumspringgreen;
+      top: 50px;
+      right: 10px;
     }
   }
 }

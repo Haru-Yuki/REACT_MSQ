@@ -4,7 +4,6 @@ import Dungeon from "../../../models/dungeon";
 import {SHOW_DUNGEON_INFO} from "../../../store/actions";
 import {useDispatch, useSelector} from "react-redux";
 import Modal from "../../global/modal/modal";
-import axios from "axios";
 import {deleteDungeonAPI, getAllDungeonsAPI, setDungeonCounter, setDungeons} from "../../../api/dungeons/dungeons-api";
 
 const DungeonCard = (props : {imageLink: string, name: string, patchName: string, level: number, description: string}) => {
@@ -24,6 +23,17 @@ const DungeonCard = (props : {imageLink: string, name: string, patchName: string
         );
     };
 
+    const handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        event.stopPropagation();
+        setShowDeleteModal(true);
+    };
+
+    const handleEdit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        event.stopPropagation();
+    };
+
     return (
         <>
             <div onClick={() => dispatch(setShowDungeonInfo(dungeonInfo))} className={"dungeon-card"}>
@@ -31,11 +41,12 @@ const DungeonCard = (props : {imageLink: string, name: string, patchName: string
                 <h3 className={"dungeon-card-name"}>{dungeonInfo.name}</h3>
                 <span className={"dungeon-card-level"}>Lvl.{dungeonInfo.level}</span>
                 <span className={"dungeon-card-patchName"}>{dungeonInfo.patchName}</span>
-                <button onClick={(event) => {
-                    window.scrollTo({top: 0, behavior: 'smooth'});
-                    event.stopPropagation();
-                    setShowDeleteModal(true);
-                }} className={"dungeon-card-delete"}>Delete</button>
+                <button onClick={(event) => handleDelete(event)} className={"dungeon-card-button dungeon-card-button__delete"}>
+                    <i className="fa-solid fa-trash-can"> </i>
+                </button>
+                <button onClick={(event) => handleEdit(event)} className={"dungeon-card-button dungeon-card-button__edit"}>
+                    <i className="fa-solid fa-pencil"> </i>
+                </button>
             </div>
             {showDeleteModal ? <Modal isDelete={true} onClose={() => setShowDeleteModal(false)} onConfirm={() => deleteDungeon(dungeonInfo.name)} name={dungeonInfo.name} /> : null}
         </>
