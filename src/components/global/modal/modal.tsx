@@ -1,7 +1,32 @@
 import React, {MouseEventHandler, useEffect} from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 import "./modal.scss";
+import Dungeon from "../../../models/dungeon";
+import * as Yup from 'yup';
 
-const Modal = (props: {isDelete: boolean, onClose: MouseEventHandler<HTMLButtonElement>}) => {
+const Modal = (props: {isDelete: boolean, isEdit?: boolean, onClose: MouseEventHandler<HTMLButtonElement>, onConfirm?: any, name?: string, dungeon?: Dungeon}) => {
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().when({
+            is: () => props.isEdit === true,
+            then: Yup.string().notRequired(),
+            otherwise: Yup.string().required('Name is required')
+        }),
+        level: Yup.string()
+            .required('Level is required'),
+        imageLink: Yup.string()
+            .required('Image link is required')
+            .matches(/\.(jpe?g|png)$/i, 'The url must be image! (.png/.jpeg)'),
+        patchName: Yup.string()
+            .required('Patch name is required'),
+        description: Yup.string()
+            .required('Description is required')
+    });
+    const formOptions = { resolver: yupResolver(validationSchema) };
+
+    const { register, handleSubmit, formState } = useForm<Dungeon>(formOptions);
+    const { errors } = formState;
+
     useEffect(() => {
         document.body.classList.add('modal-open');
         return () => {
@@ -11,107 +36,70 @@ const Modal = (props: {isDelete: boolean, onClose: MouseEventHandler<HTMLButtonE
 
     return <div className="modal-container modal-container--active" id="modal-container">
                 { props.isDelete ?
-                renderDeleteModal(props.onClose) :
-                renderDungeonModal(props.onClose) };
+                renderDeleteModal(props.onClose, props.onConfirm, props.name) :
+                renderDungeonModal(props.onClose, props.onConfirm, handleSubmit, register, errors, props.isEdit, props.dungeon) };
             </div>
 }
 
-const renderDungeonModal = (onClose: MouseEventHandler<HTMLButtonElement>) => {
+const renderDungeonModal = (onClose: MouseEventHandler<HTMLButtonElement>, onConfirm: any, handleSubmit: any, register: any, errors: any, isEdit: boolean, dungeon: Dungeon) => {
     return (
         <div className="modal-wrapper">
             <button onClick={onClose} className="modal-closeBtn">X</button>
             <h2 className="modal-header">Add Dungeon</h2>
-            <form className="modal-form">
+            <form onSubmit={handleSubmit(onConfirm)} className="modal-form">
                 <div className="grid-container modal-form-wrapper">
                     <div className="grid-x grid-padding-x">
                         <div className="medium-10 cell">
                             <label className="modal-form-label">Name
-                                <input className="modal-form-input" type="text" placeholder="Sastasha" />
+                                <input className={`modal-form-input ${isEdit ? 'modal-form-input__edit' : ''} ${errors.name ? 'modal-form-input__invalid' : ''}`} type="text" placeholder="Sastasha" {...register("name")} disabled={isEdit} value={isEdit ? dungeon.name: ''} />
                             </label>
+                            <div className="modal-form-input-invalid-feedback">{errors.name?.message}</div>
                         </div>
                         <div className="medium-2 cell">
                             <label className="modal-form-label">Level
-                                <input className="modal-form-input" type="number" min={15} max={90} placeholder="15" />
+                                <input className={`modal-form-input ${errors.level ? 'modal-form-input__invalid' : ''}`} type="number" min={15} max={90} placeholder="15" {...register("level")} defaultValue={isEdit ? dungeon.level: ''}/>
                             </label>
+                            <div className="modal-form-input-invalid-feedback">{errors.level?.message}</div>
                         </div>
                     </div>
                     <div className="grid-x grid-padding-x">
                         <div className="medium-10 cell">
-                            <label className="modal-form-label">Wiki url
-                                <input className="modal-form-input" type="url" placeholder="https://ffxiv.consolegameswiki.com/wiki/Dungeons/" />
+                            <label className="modal-form-label">Image link
+                                <input className={`modal-form-input ${errors.imageLink ? 'modal-form-input__invalid' : ''}`} type="url" placeholder="https://i.imgur.com/Qo4TszB.png" {...register("imageLink")} defaultValue={isEdit ? dungeon.imageLink: ''} />
                             </label>
+                            <div className="modal-form-input-invalid-feedback">{errors.imageLink?.message}</div>
                         </div>
                         <div className="medium-2 cell">
                             <label className="modal-form-label">Patch
-                                <select className="modal-form-input">
-                                    <option value="default"> </option>
-                                    <option value="2.0">2.0</option>
-                                    <option value="2.1">2.1</option>
-                                    <option value="2.2">2.2</option>
-                                    <option value="2.3">2.3</option>
-                                    <option value="2.4">2.4</option>
-                                    <option value="2.5">2.5</option>
-                                    <option value="3.0">3.0</option>
-                                    <option value="3.1">3.1</option>
-                                    <option value="3.2">3.2</option>
-                                    <option value="3.3">3.3</option>
-                                    <option value="3.4">3.4</option>
-                                    <option value="3.5">3.5</option>
-                                    <option value="4.0">4.0</option>
-                                    <option value="4.1">4.1</option>
-                                    <option value="4.2">4.2</option>
-                                    <option value="4.3">4.3</option>
-                                    <option value="4.4">4.4</option>
-                                    <option value="4.5">4.5</option>
-                                    <option value="5.0">5.0</option>
-                                    <option value="5.1">5.1</option>
-                                    <option value="5.2">5.2</option>
-                                    <option value="5.3">5.3</option>
-                                    <option value="5.4">5.4</option>
-                                    <option value="5.5">5.5</option>
-                                    <option value="6.0">6.0</option>
-                                    <option value="6.1">6.1</option>
-                                </select>
+                                <input className={`modal-form-input ${errors.patchName ? 'modal-form-input__invalid' : ''}`} type="text" placeholder="ARR" {...register("patchName")} defaultValue={isEdit ? dungeon.patchName: ''} />
                             </label>
+                            <div className="modal-form-input-invalid-feedback">{errors.patchName?.message}</div>
                         </div>
-                    </div>
-                    <div className="grid-x grid-padding-x">
-                        <div className="medium-10 cell">
-                            <label className="modal-form-label">Unlock quest
-                                <input className="modal-form-input" type="text" placeholder="It's Probably Pirates" />
-                            </label>
-                        </div>
-                        <div className="medium-2 cell">
-                            <label className="modal-form-label">Ilevel
-                                <input className="modal-form-input" type="number" min={0} max={600} placeholder="-" />
-                            </label>
-                        </div>
-                    </div>
-                    <div className="medium-2 cell">
-                        <input id="isMsqCheck" type="checkbox" className="modal-form-checkbox" /><label className="modal-form-label" htmlFor="isMsqCheck">MSQ</label>
                     </div>
                     <div className="grid-x grid-padding-x">
                         <div className="medium-12 cell">
                             <label className="modal-form-label">
                                 In-game description
-                                <textarea className="modal-form-input modal-form-input--textarea" rows={7} />
+                                <textarea className={`modal-form-input modal-form-input__textarea ${errors.description ? 'modal-form-input__invalid' : ''}`} rows={7} {...register("description")} defaultValue={isEdit ? dungeon.description: ''} />
                             </label>
+                            <div className="modal-form-input-invalid-feedback">{errors.description?.message}</div>
                         </div>
                     </div>
                 </div>
+                <button type={"submit"} className={"submit success button modal-confirm"}>Confirm</button>
             </form>
-            <button type={"submit"} className={"submit success button modal-confirm"}>Confirm</button>
         </div>
     )
 }
 
-const renderDeleteModal = (onClose: MouseEventHandler<HTMLButtonElement>) => {
+const renderDeleteModal = (onClose: MouseEventHandler<HTMLButtonElement>, onConfirm: any, name: string) => {
     return (
-        <div className={"modal-wrapper"}>
+        <div className={"modal-wrapper modal-wrapper--delete"}>
             <button onClick={onClose} className={"modal-closeBtn"}>X</button>
             <h2 className={"modal-header"}>Delete Dungeon</h2>
-            <p className={"modal-text"}>Are you sure you want to delete dungeon?</p>
-            <button type={"submit"} className={"submit success button modal-confirm"}>Confirm</button>
+            <p className={"modal-text"}>Are you sure you want to delete <span className={"modal-dungeonName"}>{name}</span> dungeon?</p>
+            <button onClick={onConfirm} type={"submit"} className={"submit success button modal-confirm"}>Confirm</button>
+            <button onClick={onClose} className={"submit alert button modal-confirm"}>Cancel</button>
         </div>
     )
 }

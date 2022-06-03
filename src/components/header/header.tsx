@@ -31,7 +31,7 @@ const Header = () => {
                 <img className={"header-dungeon-card-image"} src={showDungeonInfo.imageLink} alt={`${showDungeonInfo.name} image`} />
                 <div className={"header-dungeon-card header-dungeon-card--content"}>
                     <h3 className={"header-dungeon-card-name"}>{showDungeonInfo.name}</h3>
-                    <span className={"header-dungeon-card-level"}>Lvl.{showDungeonInfo.level}</span><br />
+                    <span className={"header-dungeon-card-level"}>Lvl.{showDungeonInfo.level}</span>
                     <span className={"header-dungeon-card-patchName"}>{showDungeonInfo.patchName}</span>
                     <p className={"header-dungeon-card-description"}>{showDungeonInfo.description}</p>
                 </div>
