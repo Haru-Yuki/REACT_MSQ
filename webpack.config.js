@@ -20,7 +20,7 @@ module.exports = {
     module: {
         rules: [
           {
-            test: /\.mjs$/,
+            test: /\.m?js$/,
             enforce: 'pre',
             use: ['source-map-loader'],
           },
@@ -28,13 +28,6 @@ module.exports = {
             test: /\.tsx?$/,
             use: 'ts-loader',
             exclude: /node_modules/,
-          },
-          {
-            test: /\.m?js$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: "babel-loader"
-            }
           },
           {
               test: /\.scss$/,

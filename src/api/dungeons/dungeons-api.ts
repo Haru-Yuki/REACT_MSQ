@@ -9,11 +9,15 @@ export const getAllDungeonsAPI = async (dungeonsFilter: string, dungeonsSorting:
 
 export const addDungeonAPI = async (dungeon: Dungeon) => {
     console.log(dungeon);
-    await axios.put(`https://ffmsqroulette.herokuapp.com/dungeons/add`, dungeon);
+    await axios.put(`https://ffmsqroulette.herokuapp.com/dungeon/add`, dungeon);
 };
 
 export const deleteDungeonAPI = async (dungeonName: string) => {
-    await axios.delete(`https://ffmsqroulette.herokuapp.com/dungeons/del`, { data: { name: dungeonName } });
+    await axios.delete(`https://ffmsqroulette.herokuapp.com/dungeons/delete`, { data: { name: dungeonName } });
+};
+
+export const editDungeonAPI = async (dungeon: Dungeon) => {
+    await axios.patch(`https://ffmsqroulette.herokuapp.com/dungeon/edit`, dungeon);
 };
 
 export const setDungeonCounter = (totalAmount: number) => {

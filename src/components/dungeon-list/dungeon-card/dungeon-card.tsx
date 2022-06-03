@@ -4,17 +4,34 @@ import Dungeon from "../../../models/dungeon";
 import {SHOW_DUNGEON_INFO} from "../../../store/actions";
 import {useDispatch, useSelector} from "react-redux";
 import Modal from "../../global/modal/modal";
-import {deleteDungeonAPI, getAllDungeonsAPI, setDungeonCounter, setDungeons} from "../../../api/dungeons/dungeons-api";
+import {
+    deleteDungeonAPI,
+    editDungeonAPI,
+    getAllDungeonsAPI,
+    setDungeonCounter,
+    setDungeons
+} from "../../../api/dungeons/dungeons-api";
 
 const DungeonCard = (props : {imageLink: string, name: string, patchName: string, level: number, description: string}) => {
     const dispatch = useDispatch();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const storeDungeonsFilter = useSelector((state: any) => state.dungeonsFilter);
     const storeDungeonsSorting = useSelector((state: any) => state.dungeonsSorting);
     const dungeonInfo = useMemo(() => prepareDungeonInfo(props), [props]);
 
     const deleteDungeon = (dungeonName: string) => {
         deleteDungeonAPI(dungeonName).then(() =>
+            getAllDungeonsAPI(storeDungeonsFilter, storeDungeonsSorting)
+                .then((data: any) => {
+                    dispatch(setDungeonCounter(data.totalAmount));
+                    dispatch(setDungeons(data.data));
+                })
+        );
+    };
+
+    const editDungeon = (dungeon: Dungeon) => {
+        editDungeonAPI(dungeon).then(() =>
             getAllDungeonsAPI(storeDungeonsFilter, storeDungeonsSorting)
                 .then((data: any) => {
                     dispatch(setDungeonCounter(data.totalAmount));
@@ -32,6 +49,7 @@ const DungeonCard = (props : {imageLink: string, name: string, patchName: string
     const handleEdit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         window.scrollTo({top: 0, behavior: 'smooth'});
         event.stopPropagation();
+        setShowEditModal(true);
     };
 
     return (
@@ -49,6 +67,7 @@ const DungeonCard = (props : {imageLink: string, name: string, patchName: string
                 </button>
             </div>
             {showDeleteModal ? <Modal isDelete={true} onClose={() => setShowDeleteModal(false)} onConfirm={() => deleteDungeon(dungeonInfo.name)} name={dungeonInfo.name} /> : null}
+            {showEditModal ? <Modal isDelete={false} isEdit={true} onClose={() => setShowEditModal(false)} onConfirm={() => editDungeon(dungeonInfo)} dungeon={dungeonInfo} /> : null}
         </>
     )
 };

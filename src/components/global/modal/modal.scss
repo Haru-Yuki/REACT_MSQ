@@ -70,10 +70,26 @@
         background-color: #454545;
       }
 
-      &--textarea {
+      &__textarea {
         padding-top: 15px !important;
         font-size: 16px;
         resize: none;
+      }
+
+      &__edit {
+        color: black;
+      }
+
+      &__invalid {
+        border: 1px solid firebrick;
+      }
+
+      &-invalid-feedback {
+        min-width: 200px;
+        margin: -15px 0 10px;
+        font-size: 14px;
+        color: firebrick;
+        font-style: italic;
       }
     }
   }
