@@ -17,6 +17,7 @@ export const deleteDungeonAPI = async (dungeonName: string) => {
 };
 
 export const editDungeonAPI = async (dungeon: Dungeon) => {
+    console.log(dungeon);
     await axios.patch(`https://ffmsqroulette.herokuapp.com/dungeon/edit`, dungeon);
 };
 

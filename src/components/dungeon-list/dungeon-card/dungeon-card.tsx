@@ -67,7 +67,7 @@ const DungeonCard = (props : {imageLink: string, name: string, patchName: string
                 </button>
             </div>
             {showDeleteModal ? <Modal isDelete={true} onClose={() => setShowDeleteModal(false)} onConfirm={() => deleteDungeon(dungeonInfo.name)} name={dungeonInfo.name} /> : null}
-            {showEditModal ? <Modal isDelete={false} isEdit={true} onClose={() => setShowEditModal(false)} onConfirm={() => editDungeon(dungeonInfo)} dungeon={dungeonInfo} /> : null}
+            {showEditModal ? <Modal isDelete={false} isEdit={true} onClose={() => setShowEditModal(false)} onConfirm={editDungeon} dungeon={dungeonInfo} /> : null}
         </>
     )
 };
