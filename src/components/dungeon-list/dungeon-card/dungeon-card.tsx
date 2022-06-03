@@ -28,16 +28,18 @@ const DungeonCard = (props : {imageLink: string, name: string, patchName: string
                     dispatch(setDungeons(data.data));
                 })
         );
+        setShowDeleteModal(false)
     };
 
     const editDungeon = (dungeon: Dungeon) => {
-        editDungeonAPI(dungeon).then(() =>
+        editDungeonAPI({...dungeon, name: dungeonInfo.name}).then(() =>
             getAllDungeonsAPI(storeDungeonsFilter, storeDungeonsSorting)
                 .then((data: any) => {
                     dispatch(setDungeonCounter(data.totalAmount));
                     dispatch(setDungeons(data.data));
                 })
         );
+        setShowEditModal(false)
     };
 
     const handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
