@@ -1,10 +1,9 @@
 .header {
   &-wrapper {
-    min-height: 350px;
+    min-height: 500px;
     width: 100%;
-    background: rgba(0, 0, 0, 0.75);
     background-blend-mode: darken;
-    background-position-y: -70px;
+    background: rgba(0, 0, 0, 0.75) no-repeat fixed center;
     background-size: cover;
 
     &-dungeon {

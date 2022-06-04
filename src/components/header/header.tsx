@@ -20,7 +20,7 @@ const Header = () => {
         return <div className={"grid-container"}>
             <Logo />
             <HeaderAdd />
-            <HeaderSearch />
+            {/*<HeaderSearch />*/}
         </div>
     }
 

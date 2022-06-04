@@ -51,7 +51,7 @@ const renderDungeonModal = (onClose: MouseEventHandler<HTMLButtonElement>, onCon
                     <div className="grid-x grid-padding-x">
                         <div className="medium-10 cell">
                             <label className="modal-form-label">Name
-                                <input className={`modal-form-input ${isEdit ? 'modal-form-input__edit' : ''} ${errors.name ? 'modal-form-input__invalid' : ''}`} type="text" placeholder="Sastasha" {...register("name")} disabled={isEdit} value={isEdit ? dungeon.name: ''} />
+                                <input className={`modal-form-input ${isEdit ? 'modal-form-input__edit' : ''} ${errors.name ? 'modal-form-input__invalid' : ''}`} type="text" placeholder="Sastasha" {...register("name")} disabled={isEdit} defaultValue={isEdit ? dungeon.name: ''} />
                             </label>
                             <div className="modal-form-input-invalid-feedback">{errors.name?.message}</div>
                         </div>
