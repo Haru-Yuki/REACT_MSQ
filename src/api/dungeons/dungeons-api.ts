@@ -12,7 +12,7 @@ export const addDungeonAPI = async (dungeon: Dungeon) => {
 };
 
 export const deleteDungeonAPI = async (dungeonName: string) => {
-    await axios.delete(`https://ffmsqroulette.herokuapp.com/dungeons/delete`, { data: { name: dungeonName } });
+    await axios.delete(`https://ffmsqroulette.herokuapp.com/dungeon/delete`, { data: { name: dungeonName } });
 };
 
 export const editDungeonAPI = async (dungeon: Dungeon) => {

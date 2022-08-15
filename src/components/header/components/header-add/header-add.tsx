@@ -4,7 +4,6 @@ import "./header-add.scss";
 import Modal from "../../../global/modal/modal";
 import {
     addDungeonAPI,
-    deleteDungeonAPI,
     getAllDungeonsAPI,
     setDungeonCounter,
     setDungeons

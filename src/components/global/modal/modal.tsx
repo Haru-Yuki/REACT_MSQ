@@ -39,7 +39,7 @@ const Modal = (props: {isDelete: boolean, isEdit?: boolean, onClose: MouseEventH
                 renderDeleteModal(props.onClose, props.onConfirm, props.name) :
                 renderDungeonModal(props.onClose, props.onConfirm, handleSubmit, register, errors, props.isEdit, props.dungeon) };
             </div>
-}
+    }
 
 const renderDungeonModal = (onClose: MouseEventHandler<HTMLButtonElement>, onConfirm: any, handleSubmit: any, register: any, errors: any, isEdit: boolean, dungeon: Dungeon) => {
     return (
