@@ -2,9 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/MSQRoulette" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/REACT_MSQ" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/server-GOVNO/MSQRoulette" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/server/MoviesAPI.ReactJS" vcs="Git" />
   </component>
 </project>
