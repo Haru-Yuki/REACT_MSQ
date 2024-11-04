@@ -116,7 +116,7 @@ async function copyBase64ImageToClipboard(base64Image) {
 
         alert('Image copied to clipboard!');
     } catch (error) {
-        console.error('Failed to copy image to clipboard:', error);
+        alert('Failed to copy image to clipboard');
     }
 }
 
